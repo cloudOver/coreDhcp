@@ -14,5 +14,5 @@ setup(
   download_url = 'https://github.com/cloudOver/CoreDhcp/archive/master.zip',
   keywords = ['corecluster', 'cloudover', 'cloud', 'cloudinit'],
   classifiers = [],
-  install_requires = ['corecluster', 'pyaml'],
+  install_requires = ['corecluster'],
 )

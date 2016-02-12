@@ -53,7 +53,7 @@ def start(context, network_id, gateway_ip):
 
 
 @register(auth='token', validate={'network_id': v.is_id()})
-def delete(context, network_id):
+def stop(context, network_id):
     """ Delete vpn network """
     network = Subnet.get(context.user_id, network_id)
     if network.network_pool.mode != 'isolated':

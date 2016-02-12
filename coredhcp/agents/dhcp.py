@@ -28,7 +28,7 @@ class AgentThread(BaseAgent):
     supported_actions = ['start', 'stop']
 
 
-    def create(self, task):
+    def start(self, task):
         network = task.get_obj('Subnet')
         gateway = network.get_prop('gateway', None)
         if gateway is None:
@@ -49,7 +49,7 @@ class AgentThread(BaseAgent):
         network.save()
 
 
-    def delete(self, task):
+    def stop(self, task):
         network = task.get_obj('Subnet')
 
         dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
