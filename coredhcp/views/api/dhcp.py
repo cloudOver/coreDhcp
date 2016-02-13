@@ -54,7 +54,9 @@ def start(context, network_id, gateway_ip):
 
 @register(auth='token', validate={'network_id': v.is_id()})
 def stop(context, network_id):
-    """ Delete vpn network """
+    """
+    Stop DHCP servers in network
+    """
     network = Subnet.get(context.user_id, network_id)
     if network.network_pool.mode != 'isolated':
         raise CoreException('network_not_isolated')
