@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from corecluster.agents.base_agent import BaseAgent
+from corecluster.utils.logger import *
 from corenetwork.utils import system
 import os
 import subprocess
@@ -55,15 +56,18 @@ class AgentThread(BaseAgent):
     def stop_dhcp(self, task):
         network = task.get_obj('Subnet')
 
-        dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
-        ns_procs = [int(x) for x in subprocess.check_output(['sudo', 'ip', 'netns', 'pids', network.netns_name]).splitlines()]
+        try:
+            dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
+            ns_procs = [int(x) for x in subprocess.check_output(['sudo', 'ip', 'netns', 'pids', network.netns_name]).splitlines()]
 
-        for pid in ns_procs:
-            if pid in dnsmasq_procs:
-                try:
-                    os.kill(pid, 15)
-                except:
-                    pass
+            for pid in ns_procs:
+                if pid in dnsmasq_procs:
+                    try:
+                        os.kill(pid, 15)
+                    except:
+                        pass
+        except Exception, e:
+            syslog(msg="Failed to kill DHCP process: " + str(e))
 
         network.set_prop('dhcp_running', False)
         network.save()
