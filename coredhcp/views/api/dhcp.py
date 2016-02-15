@@ -43,12 +43,12 @@ def start(context, network_id, gateway_ip):
     if network.get_prop('dhcp_running', False):
         task = Task()
         task.type = 'dhcp'
-        task.action = 'stop'
+        task.action = 'stop_dhcp'
         task.append_to([network], broadcast=True)
 
     task = Task()
     task.type = 'dhcp'
-    task.action = 'start'
+    task.action = 'start_dhcp'
     task.append_to([network], broadcast=True)
 
 
@@ -63,5 +63,5 @@ def stop(context, network_id):
 
     task = Task()
     task.type = 'dhcp'
-    task.action = 'stop'
+    task.action = 'stop_dhcp'
     task.append_to([network], broadcast=True)

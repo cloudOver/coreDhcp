@@ -25,10 +25,10 @@ import subprocess
 
 class AgentThread(BaseAgent):
     task_type = 'dhcp'
-    supported_actions = ['start', 'stop']
+    supported_actions = ['start_dhcp', 'stop_dhcp']
 
 
-    def start(self, task):
+    def start_dhcp(self, task):
         network = task.get_obj('Subnet')
         gateway = network.get_prop('gateway', None)
         if gateway is None:
@@ -49,7 +49,7 @@ class AgentThread(BaseAgent):
         network.save()
 
 
-    def stop(self, task):
+    def stop_dhcp(self, task):
         network = task.get_obj('Subnet')
 
         dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
