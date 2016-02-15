@@ -30,6 +30,9 @@ class AgentThread(BaseAgent):
 
     def start_dhcp(self, task):
         network = task.get_obj('Subnet')
+
+        self.stop_dhcp(task)
+
         gateway = network.get_prop('gateway', None)
         if gateway is None:
             #TODO: Exception?
