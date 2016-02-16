@@ -42,10 +42,12 @@ class AgentThread(BaseAgent):
         system.call(['ip', 'link', 'set', network.isolated_port_name, 'up'], netns=network.netns_name)
 
         dnsmasq = ['dnsmasq',
-                   '-i', network.isolated_port_name]
+                   '-i', network.isolated_port_name,
+                   '-F', '%s,%s' % [str(network.to_ipnetwork()), str(network.to_ipnetwork().broadcast)]]
 
         for lease in network.lease_set.all():
-            dnsmasq.append('--host=%s,%s' % (lease.mac, lease.address))
+            dnsmasq.append('-G')
+            dnsmasq.append('%s,%s' % (lease.mac, lease.address))
 
         system.call(dnsmasq, netns=network.netns_name, background=True)
 
