@@ -57,14 +57,14 @@ class AgentThread(BaseAgent):
         network = task.get_obj('Subnet')
 
         try:
-            dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq'], netns=network.netns_name).splitlines()]
-            ns_procs = [int(x) for x in subprocess.check_output(['sudo', 'ip', 'netns', 'pids', network.netns_name], netns=network.netns_name).splitlines()]
+            dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
+            ns_procs = [int(x) for x in subprocess.check_output(['sudo', 'ip', 'netns', 'pids', network.netns_name]).splitlines()]
 
             for pid in ns_procs:
                 if pid in dnsmasq_procs:
                     try:
                         #os.kill(pid, 15)
-                        subprocess.call(['kill', '-15', str(pid)], netns=network.netns_name)
+                        subprocess.call(['sudo', 'ip', 'netns', 'exec', network.netns_name, 'kill', '-15', str(pid)])
                     except:
                         pass
         except Exception, e:
