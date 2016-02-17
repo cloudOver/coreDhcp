@@ -47,7 +47,7 @@ class AgentThread(BaseAgent):
 
         for lease in network.lease_set.all():
             dnsmasq.append('-G')
-            dnsmasq.append('%s,%s' % (lease.mac, lease.address))
+            dnsmasq.append('%s,%s' % (str(lease.mac), str(lease.address)))
 
         system.call(dnsmasq, netns=network.netns_name, background=True)
 
