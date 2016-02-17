@@ -43,7 +43,7 @@ class AgentThread(BaseAgent):
 
         dnsmasq = ['dnsmasq',
                    '-i', network.isolated_port_name,
-                   '-F', '%s,%s' % [str(network.to_ipnetwork()), str(network.to_ipnetwork().broadcast)]]
+                   '-F', '%s,%s' % (str(network.to_ipnetwork()), str(network.to_ipnetwork().broadcast))]
 
         for lease in network.lease_set.all():
             dnsmasq.append('-G')
