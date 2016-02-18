@@ -40,7 +40,7 @@ class AgentThread(BaseAgent):
             return
 
         system.call(['ip', 'link', 'set', network.isolated_port_name, 'up'], netns=network.netns_name)
-        system.call(['ip', 'addr', 'add', 'dev', network.isolated_port_name, gateway], netns=network.netns_name)
+        system.call(['ip', 'addr', 'add', 'dev', network.isolated_port_name, '%s/%d' % (gateway, network.mask)], netns=network.netns_name)
 
         dnsmasq = ['dnsmasq',
                    '-i', network.isolated_port_name,
