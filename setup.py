@@ -6,7 +6,7 @@ from distutils.command.install import install as _install
 setup(
   name = 'coredhcp',
   packages = find_packages(),
-  version = '16.02.01',
+  version = '16.02.02',
   description = 'DHCP support for isolated networks in CoreCluster IaaS',
   author = 'Marta Nabozny',
   author_email = 'marta.nabozny@cloudover.io',
