@@ -43,8 +43,8 @@ class AgentThread(BaseAgent):
         system.call(['ip', 'addr', 'add', 'dev', network.isolated_port_name, '%s/%d' % (gateway, network.mask)], netns=network.netns_name)
 
         dnsmasq = ['dnsmasq',
-                   '-O', '3:',
-                   '-O', '6:',
+                   '-O', '3',
+                   '-O', '6',
                    '-i', network.isolated_port_name,
                    '-F', '%s,%s' % (str(network.to_ipnetwork().ip+1), str(network.to_ipnetwork().broadcast-1))]
 
