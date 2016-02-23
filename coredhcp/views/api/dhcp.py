@@ -49,7 +49,7 @@ def start(context, network_id, gateway_ip):
     task = Task()
     task.type = 'dhcp'
     task.action = 'start_dhcp'
-    task.append_to([network], broadcast=True)
+    task.append_to([network])
 
 
 @register(auth='token', validate={'network_id': v.is_id()})

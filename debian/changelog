@@ -1,0 +1,5 @@
+coredhcp (16.02.04) stable; urgency=low
+
+  * First Debian Package
+
+ -- Marta Nabozny <martastrzet@gmail.com> 23 Feb 2016 10:00:00 +0200

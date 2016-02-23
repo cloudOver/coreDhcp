@@ -1,3 +1,9 @@
+all:
+	echo "Nothing to compile"
+
+install:
+	python setup.py install --root=$(DESTDIR)
+
 egg:
 	python setup.py sdist bdist_egg
 

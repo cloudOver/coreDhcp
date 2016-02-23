@@ -1,0 +1,13 @@
+Source: coredhcp
+Section: contrib
+Priority: extra
+Maintainer: Marta Nabozny <marta.nabozny@cloudover.io>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: http://cloudover.org/corecluster/
+
+Package: coredhcp
+Architecture: all
+Depends: avahi-daemon, avahi-discover, avahi-utils, corosync, libvirt-bin, nfs-common, ntpdate, openssh-server, python-dev, python-libvirt, python-pip, quagga, qemu-utils, sudo
+Description: DHCP support for isolated networks in CoreCluster
+ This package includes dhcp tools for CoreCLuster's isolated networking
