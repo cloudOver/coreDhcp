@@ -23,18 +23,29 @@ from corenetwork.api_mixin import ApiMixin
 from corenetwork.config_mixin import ConfigMixin
 from corenetwork.hook_interface import HookInterface
 from corecluster.utils.logger import *
-from corecluster.cache.task import Task
+import subprocess
 
 
 class Hook(NetworkMixin, OsMixin, ApiMixin, ConfigMixin, HookInterface):
     task = None
 
-    def finish(self):
+    def start(self):
         super(Hook, self).finish()
         network = self.task.get_obj('Subnet')
-        if network.get_prop('dhcp_running') == True:
-            syslog(msg='Stopping dhcp service for network %s' % network.id)
-            task = Task()
-            task.type = 'dhcp'
-            task.action = 'stop_dhcp'
-            task.append_to([network], broadcast=True)
+
+        try:
+            dnsmasq_procs = [int(x) for x in subprocess.check_output(['pgrep', 'dnsmasq']).splitlines()]
+            ns_procs = [int(x) for x in subprocess.check_output(['sudo', 'ip', 'netns', 'pids', network.netns_name]).splitlines()]
+
+            for pid in ns_procs:
+                if pid in dnsmasq_procs:
+                    try:
+                        #os.kill(pid, 15)
+                        subprocess.call(['sudo', 'ip', 'netns', 'exec', network.netns_name, 'kill', '-15', str(pid)])
+                    except:
+                        pass
+        except Exception, e:
+            syslog(msg="Failed to kill DHCP process: " + str(e))
+
+        network.set_prop('dhcp_running', False)
+        network.save()
