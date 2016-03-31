@@ -39,13 +39,13 @@ class AgentThread(BaseAgent):
             #TODO: Exception?
             return
 
-        system.call(['ip', 'link', 'set', network.isolated_port_name, 'up'], netns=network.netns_name)
-        system.call(['ip', 'addr', 'add', 'dev', network.isolated_port_name, '%s/%d' % (gateway, network.mask)], netns=network.netns_name)
+        system.call(['ip', 'link', 'set', network.isolated_bridge_name, 'up'], netns=network.netns_name)
+        system.call(['ip', 'addr', 'add', 'dev', network.isolated_bridge_name, '%s/%d' % (gateway, network.mask)], netns=network.netns_name)
 
         dnsmasq = ['dnsmasq',
                    '-O', '3',
                    '-O', '6',
-                   '-i', network.isolated_port_name,
+                   '-i', network.isolated_bridge_name,
                    '-F', '%s,%s' % (str(network.to_ipnetwork().ip+1), str(network.to_ipnetwork().broadcast-1))]
 
         for lease in network.lease_set.all():
@@ -68,7 +68,6 @@ class AgentThread(BaseAgent):
             for pid in ns_procs:
                 if pid in dnsmasq_procs:
                     try:
-                        #os.kill(pid, 15)
                         subprocess.call(['sudo', 'ip', 'netns', 'exec', network.netns_name, 'kill', '-15', str(pid)])
                     except:
                         pass
