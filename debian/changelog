@@ -1,3 +1,10 @@
+coredhcp (16.04.01) unstable; urgency=low
+
+  * Updated debian rules file
+
+ -- Marta Nabozny <martastrzet@gmail.com> 08 Apr 2016 10:00:00 +0200
+
+
 coredhcp (16.03.02) unstable; urgency=low
 
   * Updated network model
