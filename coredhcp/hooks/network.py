@@ -20,13 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from corenetwork.network_mixin import NetworkMixin
 from corenetwork.os_mixin import OsMixin
 from corenetwork.api_mixin import ApiMixin
-from corenetwork.config_mixin import ConfigMixin
 from corenetwork.hook_interface import HookInterface
-from corecluster.utils.logger import *
+from corecluster.utils.logger import log
 import subprocess
 
 
-class Hook(NetworkMixin, OsMixin, ApiMixin, ConfigMixin, HookInterface):
+class Hook(NetworkMixin, OsMixin, ApiMixin, HookInterface):
     task = None
 
     def start(self):
@@ -45,7 +44,7 @@ class Hook(NetworkMixin, OsMixin, ApiMixin, ConfigMixin, HookInterface):
                     except:
                         pass
         except Exception, e:
-            syslog(msg="Failed to kill DHCP process: " + str(e))
+            log(msg="Failed to kill DHCP process: " + str(e), tags=('agent', 'dhcp', 'network'))
 
         network.set_prop('dhcp_running', False)
         network.save()
