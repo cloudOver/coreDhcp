@@ -21,7 +21,7 @@ from corenetwork.network_mixin import NetworkMixin
 from corenetwork.os_mixin import OsMixin
 from corenetwork.api_mixin import ApiMixin
 from corenetwork.hook_interface import HookInterface
-from corecluster.utils.logger import log
+from corenetwork.utils.logger import log
 import subprocess
 
 

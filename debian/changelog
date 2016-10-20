@@ -1,8 +1,8 @@
-coredhcp (16.09.01) stable; urgency=low
+coredhcp (16.10.01) stable; urgency=low
 
   * Removed config mixin
 
- -- Maciej Nabozny <maciej.nabozny@cloudover.io> 14 Sep 2016 10:00:00 +0200
+ -- Maciej Nabozny <maciej.nabozny@cloudover.io> 20 Oct 2016 10:00:00 +0200
 
 
 coredhcp (16.06.01) stable; urgency=low
