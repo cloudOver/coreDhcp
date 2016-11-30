@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from corecluster.agents.base_agent import BaseAgent
-from corecluster.utils.logger import *
+from corenetwork.utils.logger import *
 from corenetwork.utils import system
 import os
 import subprocess

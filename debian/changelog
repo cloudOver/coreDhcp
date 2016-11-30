@@ -1,6 +1,7 @@
-coredhcp (16.10.01) stable; urgency=low
+coredhcp (16.11.01) stable; urgency=low
 
   * Removed config mixin
+  * Fixed import
 
  -- Maciej Nabozny <maciej.nabozny@cloudover.io> 20 Oct 2016 10:00:00 +0200
 
