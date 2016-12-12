@@ -1,4 +1,4 @@
-coredhcp (16.11.01) stable; urgency=low
+coredhcp (16.12.01) stable; urgency=low
 
   * Removed config mixin
   * Fixed import
