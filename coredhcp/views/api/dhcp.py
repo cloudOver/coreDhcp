@@ -44,6 +44,7 @@ def start(context, network_id, gateway_ip):
     """
 
     network = Subnet.get(context.user_id, network_id)
+
     if network.network_pool.mode != 'isolated':
         raise CoreException('network_not_isolated')
 
