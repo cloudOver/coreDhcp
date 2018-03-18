@@ -82,7 +82,7 @@ class AgentThread(BaseAgent):
                     except:
                         pass
         except Exception, e:
-            syslog(msg="Failed to kill DHCP process: " + str(e))
+            log(msg="Failed to kill DHCP process: " + str(e))
 
         network.set_prop('dhcp_running', False)
         network.save()
